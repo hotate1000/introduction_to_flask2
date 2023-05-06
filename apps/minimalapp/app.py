@@ -9,13 +9,19 @@ from flask import (
     flash,
 );
 from email_validator import validate_email, EmailNotValidError;
-
+from flask_debugtoolbar import DebugToolbarExtension;
+import logging;
 
 # Flaskクラスをインスタンス化する。
 app = Flask(__name__);
 # SECRET_KEYを追加する。
 app.config["SECRET_KEY"] = "2AZSMss3p5QPbcY2hBsJ";
-
+# ログレベルを設定する。
+app.logger.setLevel(logging.DEBUG);
+# リダイレクトを中断しないようにする。
+app.config["DEBUG_TB_INTERCEPT_REDIRECTS"] = False;
+# DebugToolbarExtensionにアプリケーションをセットする。
+toolbar = DebugToolbarExtension(app);
 
 # URLと実行する関数をマッピングする。
 @app.route("/")
